@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://pvpigawc4kdp"]
+
+[ext_resource type="Texture2D" uid="uid://chstkogokncu0" path="res://asset/tiles/cozyFarm/cozyFarm.png" id="1_1kj0o"]
+[ext_resource type="Script" path="res://farm/ginger_seedpack.gd" id="1_h32pq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot6oi"]
+atlas = ExtResource("1_1kj0o")
+region = Rect2(64, 128, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrvin"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ot6oi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1kv8"]
+size = Vector2(10, 14)
+
+[node name="ginger_seedpack" type="StaticBody2D"]
+position = Vector2(20, 18)
+script = ExtResource("1_h32pq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xrvin")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_v1kv8")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://c222ph4upkla3"]
+
+[ext_resource type="Script" path="res://farm/pomegranate_seedpack.gd" id="1_25myd"]
+[ext_resource type="Texture2D" uid="uid://dpibfmd07p2m5" path="res://asset/tiles/sproutLands/Objects/Basic Plants.png" id="1_kheyj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vls0"]
+atlas = ExtResource("1_kheyj")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y265x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vls0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rdw3b"]
+size = Vector2(10, 10)
+
+[node name="pomegranate_seedpack" type="StaticBody2D"]
+position = Vector2(17, 16)
+script = ExtResource("1_25myd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y265x")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_rdw3b")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

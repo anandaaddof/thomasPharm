@@ -1,0 +1,137 @@
+[gd_scene load_steps=19 format=3 uid="uid://dnld8hkqu82p1"]
+
+[ext_resource type="Script" path="res://farm/growthzone.gd" id="1_dfej0"]
+[ext_resource type="Texture2D" uid="uid://c1njlg4tcjxsj" path="res://asset/tiles/farmingTilesheetComplete.png" id="1_vsvrm"]
+[ext_resource type="Texture2D" uid="uid://chstkogokncu0" path="res://asset/tiles/cozyFarm/cozyFarm.png" id="3_3sfdm"]
+[ext_resource type="Texture2D" uid="uid://dpibfmd07p2m5" path="res://asset/tiles/sproutLands/Objects/Basic Plants.png" id="4_ec2yt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6eeb"]
+atlas = ExtResource("1_vsvrm")
+region = Rect2(64, 112, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ggqk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6eeb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayj37"]
+size = Vector2(14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojwwt"]
+atlas = ExtResource("3_3sfdm")
+region = Rect2(96, 129, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e255r"]
+atlas = ExtResource("3_3sfdm")
+region = Rect2(112, 129, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6rxj"]
+atlas = ExtResource("3_3sfdm")
+region = Rect2(128, 129, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1ibo"]
+atlas = ExtResource("3_3sfdm")
+region = Rect2(144, 129, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axvgu"]
+atlas = ExtResource("3_3sfdm")
+region = Rect2(160, 129, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic03u"]
+atlas = ExtResource("3_3sfdm")
+region = Rect2(170, 100, 34, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6jgf"]
+atlas = ExtResource("4_ec2yt")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmfij"]
+atlas = ExtResource("4_ec2yt")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnnah"]
+atlas = ExtResource("4_ec2yt")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajy0i"]
+atlas = ExtResource("4_ec2yt")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dbtrr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojwwt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e255r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6rxj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1ibo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axvgu")
+}],
+"loop": true,
+"name": &"gingergrowth",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ic03u")
+}],
+"loop": true,
+"name": &"none",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6jgf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmfij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnnah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajy0i")
+}],
+"loop": true,
+"name": &"pomegranategrowth",
+"speed": 0.0
+}]
+
+[node name="growthzone" type="StaticBody2D"]
+script = ExtResource("1_dfej0")
+
+[node name="hoedland" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ggqk0")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ayj37")
+
+[node name="plant" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_dbtrr")
+animation = &"none"
+
+[node name="gingergrowtimer" type="Timer" parent="."]
+
+[node name="pomegranategrowtimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="timeout" from="gingergrowtimer" to="." method="_on_gingergrowtimer_timeout"]
+[connection signal="timeout" from="pomegranategrowtimer" to="." method="_on_pomegranategrowtimer_timeout"]
